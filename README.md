@@ -1,65 +1,42 @@
-# tailwind-search README
+# Tailwind Search
 
-This is the README for your extension "tailwind-search". After writing up a brief description, we recommend including the following sections.
+**Tailwind Search** is a Visual Studio Code extension that simplifies the process of searching for Tailwind CSS classes. With a user-friendly sidebar, this extension allows you to quickly find, copy, and view documentation for Tailwind CSS classes without having to remember all the class names.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Search for Tailwind CSS Classes:** Enter a search term in the search box to find relevant Tailwind CSS classes.
+- **Class Actions:** For each class found, you have two options:
+  - **Copy Class:** Copy the class name to your clipboard for easy use in your code.
+  - **View Documentation:** Open the official documentation for the class directly within VS Code.
+- **Theme Selection:** Change the theme of the extension's sidebar through a dropdown menu, with options for Light, Dark, and High Contrast themes.
+- **Integrated Documentation:** View class documentation as a webpage inside the VS Code editor.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+1. Open VS Code.
+2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or pressing `Ctrl+Shift+X`.
+3. Search for "Tailwind Search".
+4. Click on the "Install" button.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Usage
 
-## Requirements
+1. **Open the Sidebar:** Use the command palette (`Ctrl+Shift+P`) and type "Tailwind Search: Open Sidebar" to open the sidebar.
+2. **Search for Classes:** Enter your search query into the search box to find relevant Tailwind CSS classes.
+3. **Copy or View Documentation:** Click on the appropriate button next to a class in the results to copy the class name or view its documentation.
+4. **Change Theme:** Use the dropdown menu in the sidebar to select your preferred theme.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Theme Options
 
-## Extension Settings
+- **Light Theme:** For a brighter, light-colored interface.
+- **Dark Theme:** For a darker, low-light interface.
+- **High Contrast Theme:** For improved visibility with high contrast colors.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-For example:
+## Acknowledgements
 
-This extension contributes the following settings:
+- Thanks to the Tailwind CSS team for their incredible utility-first CSS framework.
+- Special thanks to the VS Code team for creating such a versatile code editor.
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+For any issues or feature requests, please use the [Issues](https://github.com/soubhagya2001/tailwind-search/issues) page of the repository.
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Happy coding!
