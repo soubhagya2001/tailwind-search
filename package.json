@@ -1,0 +1,67 @@
+{
+  "name": "tailwind-search",
+  "displayName": "Tailwind Search",
+  "description": "TailwindSearch is a powerful and intuitive VS Code extension that allows developers to quickly search and explore Tailwind CSS classes directly within their editor. Enhance your workflow by effortlessly finding the exact utility classes you need, complete with detailed documentation links. Ideal for Tailwind CSS enthusiasts looking to streamline their development process.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tailwind-search",
+          "title": "Tailwind Search",
+          "icon": "media/icon/tailwind-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "tailwind-search": [
+        {
+          "type": "webview",
+          "id": "tailwind-search",
+          "name": "Tailwind Search",
+          "icon": "media/icon/tailwind-icon.svg",
+          "contextualTitle": "Tailwind Search"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "tailwind-search.classCopied",
+        "title": "Copy CSS Class"
+      },
+      {
+        "command": "tailwind-search.handleSearchQuery",
+        "title": "Search Query"
+      },
+      {
+        "command": "tailwind-search.openWebpage",
+        "title": "Open webpage"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.92.0",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "axios": "^1.7.6"
+  }
+}

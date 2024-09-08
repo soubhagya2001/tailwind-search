@@ -1,0 +1,170 @@
+:root {
+  --background-color-light: #f4f7f6;
+  --background-color-dark: #2e2e2e;
+  --text-color-light: #333;
+  --text-color-dark: #e0e0e0;
+  --link-color-light: #000000;
+  --link-color-dark: #ffffff;
+  --select-background-light: #ffffff;
+  --select-background-dark: #333333;
+  --select-border-light: #cccccc;
+  --select-border-dark: #555555;
+
+  /* Shadow properties */
+  --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-dark: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-high-contrast: 0 4px 8px #ffff00;
+
+  /* Default to light theme */
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --link-color: var(--link-color-light);
+  --select-background: var(--select-background-light);
+  --select-border: var(--select-border-light);
+  --box-shadow: var(--shadow-light);
+}
+
+/* Light Theme */
+body.light-theme {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --link-color: var(--link-color-light);
+  --select-background: var(--select-background-light);
+  --select-border: var(--select-border-light);
+  --box-shadow: var(--shadow-light);
+}
+
+/* Dark Theme */
+body.dark-theme {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --link-color: var(--link-color-dark);
+  --select-background: var(--select-background-dark);
+  --select-border: var(--select-border-dark);
+  --box-shadow: var(--shadow-dark);
+}
+
+/* High Contrast Theme */
+body.high-contrast-theme {
+  --background-color: var(--background-color-dark);
+  --text-color: #ffff00;
+  --link-color: #ffff00;
+  --select-background: var(--background-color-dark);
+  --select-border: #ffff00;
+  --box-shadow: var(--shadow-high-contrast);
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding-top: 10px;
+}
+
+h1 {
+  font-size: 1.5em;
+  color: var(--link-color);
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 95%;
+  max-width: 230px;
+  padding: 10px;
+  font-size: 1em;
+  border: 2px solid var(--link-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow); /* Apply shadow */
+}
+
+select {
+  font-size: 10px;
+  padding: 3px;
+  border: 2px solid var(--select-border);
+  border-radius: 8px;
+  background-color: var(--select-background);
+  color: var(--text-color);
+  margin: 2px 0;
+}
+
+select option {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: var(--background-color);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: var(--box-shadow); /* Apply shadow */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Shadow and transform transition */
+  color: var(--text-color);
+}
+
+li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  cursor: pointer;
+}
+
+li a {
+  text-decoration: none;
+  color: var(--link-color);
+  font-weight: bold;
+  font-size: 1.2em;
+  display: inline;
+}
+
+li ul {
+  padding-left: 20px;
+}
+
+li ul li {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 5px 0;
+  font-size: 1em;
+  color: var(--text-color);
+}
+
+li ul li:hover {
+  transform: none;
+  background-color: transparent;
+}
+
+li ul li::before {
+  content: "• ";
+  color: var(--link-color);
+}
+
+/* New styles for div */
+div {
+  margin-bottom: 10px;
+}
+
+.icon-container {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon-container img {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0 0; /* Adjust margins to control spacing between icons */
+  vertical-align: middle; /* Ensure images align properly */
+}
+
+.icon-container img:last-child {
+  margin-right: 0;
+}
