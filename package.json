@@ -4,6 +4,10 @@
   "description": "TailwindSearch is a powerful and intuitive VS Code extension that allows developers to quickly search and explore Tailwind CSS classes directly within their editor. Enhance your workflow by effortlessly finding the exact utility classes you need, complete with detailed documentation links. Ideal for Tailwind CSS enthusiasts looking to streamline their development process.",
   "version": "1.0.0",
   "publisher": "soubhagya",
+  "galleryBanner.color": {
+    "color": "#21214c",
+    "theme": "dark"
+  },
   "icon": "media/icon/tailwind-search-logo.png",
   "repository": {
     "type": "git",
@@ -13,7 +17,6 @@
     "url": "https://github.com/soubhagya2001/tailwind-search/issues"
   },
   "homepage": "https://github.com/soubhagya2001/tailwind-search#readme",
-  
   "engines": {
     "vscode": "^1.92.0"
   },
@@ -46,15 +49,18 @@
     "commands": [
       {
         "command": "tailwind-search.classCopied",
-        "title": "Copy CSS Class"
+        "title": "Copy CSS Class",
+        "group": "tailwind-search"
       },
       {
         "command": "tailwind-search.handleSearchQuery",
-        "title": "Search Query"
+        "title": "Search Query",
+        "group": "tailwind-search"
       },
       {
         "command": "tailwind-search.openWebpage",
-        "title": "Open webpage"
+        "title": "Open Webpage",
+        "group": "tailwind-search"
       }
     ]
   },
