@@ -1,42 +1,64 @@
 # Tailwind Search
 
-**Tailwind Search** is a Visual Studio Code extension that simplifies the process of searching for Tailwind CSS classes. With a user-friendly sidebar, this extension allows you to quickly find, copy, and view documentation for Tailwind CSS classes without having to remember all the class names.
+**Tailwind Search** is a powerful and intuitive Visual Studio Code extension designed to streamline your Tailwind CSS workflow. It provides a beautiful, native-feeling sidebar to explore classes, alongside high-performance IntelliSense that delivers suggestions directly in your code editor.
 
-## Features
+<img src="media/images/full-view.png" width="200" height="300" alt="Full View">
 
-- **Search for Tailwind CSS Classes:** Enter a search term in the search box to find relevant Tailwind CSS classes.
-- **Class Actions:** For each class found, you have two options:
-  - **Copy Class:** Copy the class name to your clipboard for easy use in your code.
-  - **View Documentation:** Open the official documentation for the class directly within VS Code.
-- **Theme Selection:** Change the theme of the extension's sidebar through a dropdown menu, with options for Light, Dark, and High Contrast themes.
-- **Integrated Documentation:** View class documentation as a webpage inside the VS Code editor.
+## Key Features
 
-## Installation
+- 🔍 **Fuzzy Search**: Find exactly what you need with an advanced fuzzy search algorithm that handles typos and ranks results by relevance.
+- 🚀 **Built-in IntelliSense**: Get instant Tailwind class suggestions as you type in HTML, JS, TS, React, Vue, and Svelte files.
+- 📍 **Quick Navigation**: Use the "Jump to section" dropdown to skip directly to specific categories like Padding, Colors, or Typography.
 
-1. Open VS Code.
-2. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or pressing `Ctrl+Shift+X`.
-3. Search for "Tailwind Search".
-4. Click on the "Install" button.
+<img src="media/images/headings.png" width="200" height="300" alt="Quick Navigation">
+
+- 🗃️ **Premium Card UI**: Browsing is easier than ever with our modern card-based design, featuring collapsible sections and clear category headers.
+- 🕒 **Recently Used**: Access your most frequent classes in a dedicated "Recently Used" section for lightning-fast styling.
+- ✨ **Direct Actions**:
+  - **Copy**: One-click copy to clipboard.
+  - **Insert**: Insert the class directly at your cursor position in the active editor.
+  - **Official Docs**: Access the official Tailwind documentation page for any class instantly.
+- 🎨 **Auto-Theme Matching**: No setup required! The extension automatically matches your VS Code theme (Dark, Light, or High Contrast) for a seamless experience.
 
 ## Usage
 
-1. **Open the Sidebar:** Use the command palette (`Ctrl+Shift+P`) and type "Tailwind Search: Open Sidebar" to open the sidebar.
-2. **Search for Classes:** Enter your search query into the search box to find relevant Tailwind CSS classes.
-3. **Copy or View Documentation:** Click on the appropriate button next to a class in the results to copy the class name or view its documentation.
-4. **Change Theme:** Use the dropdown menu in the sidebar to select your preferred theme.
+### Using the Sidebar
+1. Click the **Tailwind icon** in the Activity Bar on the left.
+2. Type in the search box to find utility classes.
+3. Use the **Jump to section** dropdown to navigate between categories.
+4. Click the **+** icon to insert a class, or the **copy icon** to save it to your clipboard.
+5. Click the **External Link icon** (⇱) in any card header to open official documentation.
 
-## Theme Options
+### Using IntelliSense
+1. Open any supported file type (`.html`, `.js`, `.jsx`, `.ts`, `.tsx`, `.vue`, `.svelte`).
+2. Start typing `class="` or `className="`.
+3. Type a few characters (e.g., `h-` or `bg-`) and suggestions will appear automatically.
+4. View real-time CSS property details for every suggestion in the list.
 
-- **Light Theme:** For a brighter, light-colored interface.
-- **Dark Theme:** For a darker, low-light interface.
-- **High Contrast Theme:** For improved visibility with high contrast colors.
+## Recent History
+- The "Recently Used" section tracks your last 5 used classes.
+- Click a chip to quickly insert it again.
+- Clear your history anytime using the **Trash Icon** in the recent header.
 
+---
+### Installation
+
+1. Open **VS Code**.
+2. Go to the **Extensions view** (`Ctrl+Shift+X`).
+3. Search for **"Tailwind Search"**.
+4. Click **Install**.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
 
 ## Acknowledgements
 
-- Thanks to the Tailwind CSS team for their incredible utility-first CSS framework.
-- Special thanks to the VS Code team for creating such a versatile code editor.
+- Thanks to the [Tailwind CSS](https://tailwindcss.com/) team for their incredible utility-first CSS framework.
+- Built with ❤️ for the Tailwind community.
 
-For any issues or feature requests, please use the [Issues](https://github.com/soubhagya2001/tailwind-search/issues) page of the repository.
-
-Happy coding!
+For any issues or feature requests, please visit our [Issues page](https://github.com/soubhagya2001/tailwind-search/issues).

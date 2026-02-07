@@ -250,7 +250,13 @@ input[type="text"] {
 
 /* Recent Section */
 .recent-section { padding: 10px 14px; border-bottom: 1px solid var(--divider); }
-.recent-title { font-size: 0.65rem; font-weight: 700; opacity: 0.5; margin-bottom: 8px; text-transform: uppercase; }
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.recent-title { font-size: 0.65rem; font-weight: 700; opacity: 0.5; text-transform: uppercase; margin-bottom: 0; }
 .recent-items { display: flex; flex-wrap: wrap; gap: 6px; }
 .recent-chip { padding: 4px 10px; border-radius: 12px; background: var(--vscode-badge-background); font-size: 0.75rem; cursor: pointer; }
 
