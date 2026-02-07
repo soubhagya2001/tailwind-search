@@ -11,100 +11,120 @@ async function activate(context) {
 
   const sidebarProvider = new SidebarProvider(context.extensionUri);
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(
-      "tailwind-search",
-      sidebarProvider
-    )
+    vscode.window.registerWebviewViewProvider("tailwind-search", sidebarProvider)
   );
 
-  // Load Tailwind Data for IntelliSense
+  // Load Tailwind Data Asynchronously for IntelliSense
   let tailwindClasses = [];
-  try {
-    const dataPath = path.join(context.extensionUri.fsPath, "tailwindVersions", "3.4.10", "data.json");
-    const jsonData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
-    jsonData.forEach(item => {
-      item.data.forEach(c => {
-        tailwindClasses.push({
-          label: c.class,
-          detail: c.property,
-          documentation: item.heading
+  
+  // Use a promise to load data so we don't block activation
+  const loadTailwindData = async () => {
+    try {
+      const dataPath = path.join(context.extensionUri.fsPath, "tailwindVersions", "3.4.10", "data.json");
+      const fileContent = await fs.promises.readFile(dataPath, "utf-8");
+      const jsonData = JSON.parse(fileContent);
+      
+      const tempClasses = [];
+      jsonData.forEach(item => {
+        item.data.forEach(c => {
+          tempClasses.push({
+            label: c.class,
+            detail: c.property,
+            documentation: item.heading
+          });
         });
       });
-    });
-  } catch (err) {
-    console.error("Failed to load tailwind data for IntelliSense", err);
-  }
+      tailwindClasses = tempClasses;
+    } catch (err) {
+      console.error("Failed to load tailwind data", err);
+    }
+  };
+
+  loadTailwindData();
 
   // Register Completion Provider
   const provider = vscode.languages.registerCompletionItemProvider(
-    ["html", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte"],
+    { pattern: "**/*.{html,js,jsx,ts,tsx,vue,svelte}" },
     {
       provideCompletionItems(document, position) {
-        // Basic check to see if we are likely inside a class attribute
         const linePrefix = document.lineAt(position).text.substr(0, position.character);
-        if (!linePrefix.match(/class(?:Name)?\s*=\s*["'][^"']*$/)) {
+        
+        // Match if we are inside a class or className attribute
+        const match = linePrefix.match(/class(?:Name)?\s*=\s*["']([^"']*)$/);
+        if (!match) {
           return undefined;
         }
 
-        return tailwindClasses.map(tw => {
-          const item = new vscode.CompletionItem(tw.label, vscode.CompletionItemKind.Value);
-          item.detail = tw.detail;
-          item.documentation = new vscode.MarkdownString(`**${tw.documentation}**\n\n\`${tw.detail}\``);
+        const currentClasses = match[1];
+        // Split by space or colon to get the actual class being typed (handling hover:, sm:, etc.)
+        const parts = currentClasses.split(/[\s:]/);
+        const currentWord = parts[parts.length - 1];
+
+        // Filter classes based on what the user has already typed
+        const filtered = tailwindClasses.filter(tw => 
+          tw.label.toLowerCase().includes(currentWord.toLowerCase())
+        ).slice(0, 500); // Limit to top 500 for responsiveness
+
+        return filtered.map(tw => {
+          // Using an object for the label allows showing supplementary info in the list itself
+          const item = new vscode.CompletionItem({
+            label: tw.label,
+            detail: `  ${tw.detail}`, // Shows right after the class name
+            // description: tw.documentation // Shows the category at the far right
+          }, vscode.CompletionItemKind.Constant);
+          
+          // Documentation still exists for the "more info" panel (fly-out)
+          item.documentation = new vscode.MarkdownString(`**Full CSS**:\n\`\`\`css\n${tw.detail}\n\`\`\``);
+          
+          item.sortText = `00_${tw.label}`;
+          const startPos = position.translate(0, -currentWord.length);
+          item.range = new vscode.Range(startPos, position);
+          
           return item;
         });
       }
     },
-    " ", // Trigger on space
-    '"', // Trigger on double quote
-    "'"  // Trigger on single quote
+    " ", '"', "'", "-", ".", ":" // Added more trigger characters
   );
 
   context.subscriptions.push(provider);
 
-  // Register command to handle search queries
+  // Commands
   let disposableSearchQuery = vscode.commands.registerCommand(
     "tailwind-search.handleSearchQuery",
-    async function (query) {
-      url = query;
-    }
+    async (query) => { url = query; }
   );
 
   let disposable = vscode.commands.registerCommand(
     "tailwind-search.classCopied",
-    function (classCopied) {
-      vscode.window.showInformationMessage(`class ${classCopied} copied successfully`);
-    }
+    (classCopied) => { vscode.window.showInformationMessage(`class ${classCopied} copied successfully`); }
   );
 
   let webPage = vscode.commands.registerCommand(
     "tailwind-search.openWebpage",
-    function (heading) {
-      const panel = vscode.window.createWebviewPanel(
-        "tailwind-search",
-        heading,
-        vscode.ViewColumn.One,
-        {
-          enableScripts: true,
-        }
-      );
-
+    (heading) => {
+      const panel = vscode.window.createWebviewPanel("tailwind-search", heading, vscode.ViewColumn.One, { enableScripts: true });
       panel.webview.html = getWebviewContent(url);
     }
   );
 
   let insertClass = vscode.commands.registerCommand(
     "tailwind-search.insertClass",
-    function (className) {
+    (className) => {
       const editor = vscode.window.activeTextEditor;
       if (editor) {
-        editor.edit((editBuilder) => {
-          editBuilder.insert(editor.selection.active, " " + className);
+        // Only add space if not already at the start of a class attribute
+        editor.edit(editBuilder => {
+          const pos = editor.selection.active;
+          const line = editor.document.lineAt(pos.line).text;
+          const charBefore = pos.character > 0 ? line[pos.character - 1] : "";
+          const prefix = (charBefore !== '"' && charBefore !== "'" && charBefore !== " ") ? " " : "";
+          editBuilder.insert(pos, prefix + className);
         });
       }
     }
   );
 
-  // FIX: Close dropdown when user clicks back into the editor
   const onEditorChange = vscode.window.onDidChangeTextEditorSelection(() => {
     sidebarProvider._view?.webview.postMessage({ type: "closeDropdown" });
   });
@@ -113,23 +133,7 @@ async function activate(context) {
 }
 
 function getWebviewContent(url) {
-  return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Tailwind</title>
-    </head>
-    <body>
-      <iframe src="${url}" style="width: 100%; height: 100vh; border: 1px solid black;"></iframe>
-    </body>
-    </html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Tailwind</title></head><body><iframe src="${url}" style="width: 100%; height: 100vh; border: none;"></iframe></body></html>`;
 }
 
-function deactivate() {}
-
-module.exports = {
-  activate,
-  deactivate,
-};
+module.exports = { activate, deactivate: () => {} };
