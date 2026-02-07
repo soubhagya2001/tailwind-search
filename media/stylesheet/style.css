@@ -1,170 +1,259 @@
 :root {
-  --background-color-light: #f4f7f6;
-  --background-color-dark: #2e2e2e;
-  --text-color-light: #333;
-  --text-color-dark: #e0e0e0;
-  --link-color-light: #000000;
-  --link-color-dark: #ffffff;
-  --select-background-light: #ffffff;
-  --select-background-dark: #333333;
-  --select-border-light: #cccccc;
-  --select-border-dark: #555555;
-
-  /* Shadow properties */
-  --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
-  --shadow-dark: 0 4px 8px rgba(0, 0, 0, 0.3);
-  --shadow-high-contrast: 0 4px 8px #ffff00;
-
-  /* Default to light theme */
-  --background-color: var(--background-color-light);
-  --text-color: var(--text-color-light);
-  --link-color: var(--link-color-light);
-  --select-background: var(--select-background-light);
-  --select-border: var(--select-border-light);
-  --box-shadow: var(--shadow-light);
+  --bg-color: var(--vscode-sideBar-background);
+  --text-color: var(--vscode-sideBar-foreground);
+  --input-bg: var(--vscode-input-background);
+  --input-fg: var(--vscode-input-foreground);
+  --input-border: var(--vscode-input-border, transparent);
+  --accent-color: var(--vscode-button-background);
+  --accent-fg: var(--vscode-button-foreground);
+  --list-hover-bg: var(--vscode-list-hoverBackground);
+  --divider: var(--vscode-divider);
+  --card-bg: var(--vscode-editor-background);
+  --font-family: var(--vscode-font-family, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
 }
 
-/* Light Theme */
-body.light-theme {
-  --background-color: var(--background-color-light);
-  --text-color: var(--text-color-light);
-  --link-color: var(--link-color-light);
-  --select-background: var(--select-background-light);
-  --select-border: var(--select-border-light);
-  --box-shadow: var(--shadow-light);
-}
-
-/* Dark Theme */
-body.dark-theme {
-  --background-color: var(--background-color-dark);
-  --text-color: var(--text-color-dark);
-  --link-color: var(--link-color-dark);
-  --select-background: var(--select-background-dark);
-  --select-border: var(--select-border-dark);
-  --box-shadow: var(--shadow-dark);
-}
-
-/* High Contrast Theme */
-body.high-contrast-theme {
-  --background-color: var(--background-color-dark);
-  --text-color: #ffff00;
-  --link-color: #ffff00;
-  --select-background: var(--background-color-dark);
-  --select-border: #ffff00;
-  --box-shadow: var(--shadow-high-contrast);
+* {
+  box-sizing: border-box;
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--background-color);
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
   color: var(--text-color);
   margin: 0;
-  padding-top: 10px;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-h1 {
-  font-size: 1.5em;
-  color: var(--link-color);
-  margin-bottom: 5px;
+/* Hide the absolute top "Official" Title provided by VS Code */
+/* This is often handled in package.json, but we can minimize space here */
+.header-container {
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-color);
+  padding: 10px;
+  z-index: 1000;
+  border-bottom: 1px solid var(--divider);
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 input[type="text"] {
-  width: 95%;
-  max-width: 230px;
-  padding: 10px;
-  font-size: 1em;
-  border: 2px solid var(--link-color);
-  border-radius: 8px;
-  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px 30px 8px 12px;
+  font-size: 0.85rem;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  color: var(--input-fg);
+  background-color: var(--input-bg);
+  outline: none;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
   color: var(--text-color);
-  background-color: var(--background-color);
-  box-shadow: var(--box-shadow); /* Apply shadow */
-}
-
-select {
-  font-size: 10px;
-  padding: 3px;
-  border: 2px solid var(--select-border);
-  border-radius: 8px;
-  background-color: var(--select-background);
-  color: var(--text-color);
-  margin: 2px 0;
-}
-
-select option {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  background-color: var(--background-color);
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 10px;
-  box-shadow: var(--box-shadow); /* Apply shadow */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Shadow and transform transition */
-  color: var(--text-color);
-}
-
-li:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  opacity: 0.5;
   cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
 }
 
-li a {
-  text-decoration: none;
-  color: var(--link-color);
-  font-weight: bold;
-  font-size: 1.2em;
-  display: inline;
+.clear-btn:hover {
+  opacity: 1;
 }
 
-li ul {
-  padding-left: 20px;
+/* Jump to Section - CARD FORMAT FOR ITEMS */
+.quick-nav-details {
+  margin-top: 8px;
+  position: relative;
 }
 
-li ul li {
-  background-color: transparent;
-  box-shadow: none;
-  padding: 5px 0;
-  font-size: 1em;
-  color: var(--text-color);
-}
-
-li ul li:hover {
-  transform: none;
-  background-color: transparent;
-}
-
-li ul li::before {
-  content: "• ";
-  color: var(--link-color);
-}
-
-/* New styles for div */
-div {
-  margin-bottom: 10px;
-}
-
-.icon-container {
-  display: inline-flex;
+.quick-nav-details summary {
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--vscode-dropdown-background);
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.icon-container img {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  margin: 0 0; /* Adjust margins to control spacing between icons */
-  vertical-align: middle; /* Ensure images align properly */
+.quick-nav-details summary::after {
+  content: '▼';
+  font-size: 0.6rem;
+  transition: transform 0.2s;
 }
 
-.icon-container img:last-child {
-  margin-right: 0;
+.quick-nav-details[open] summary::after {
+  transform: rotate(180deg);
 }
+
+.quick-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-color);
+  z-index: 1001;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+  border: 1px solid var(--divider);
+  border-radius: 0 0 8px 8px;
+}
+
+.nav-item {
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background-color: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 6px;
+  transition: transform 0.1s, border-color 0.2s;
+  color: var(--text-color);
+  text-align: center;
+  font-weight: 500;
+}
+
+.nav-item:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+  background-color: var(--list-hover-bg);
+}
+
+.nav-item.active {
+  background-color: var(--accent-color);
+  color: var(--accent-fg);
+  border-color: var(--accent-color);
+  font-weight: 700;
+}
+
+/* Results Content */
+#resultList {
+  padding: 12px 10px;
+  margin: 0;
+  list-style: none;
+}
+
+.result-group {
+  margin-bottom: 16px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--divider);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.heading-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background-color: var(--vscode-sideBarSectionHeader-background);
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+}
+
+.heading-text {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.toggle-icon { margin-right: 8px; font-size: 0.6rem; transition: transform 0.2s; }
+.result-group.collapsed .toggle-icon { transform: rotate(-90deg); }
+.result-group.collapsed .class-list { display: none; }
+
+/* Class Items */
+.class-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.class-item:last-child { border-bottom: none; }
+.class-item:hover { background-color: var(--list-hover-bg); }
+
+.class-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.class-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1px solid rgba(128,128,128,0.5);
+  flex-shrink: 0;
+}
+
+.class-name {
+  font-family: var(--vscode-editor-font-family, monospace);
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.property-desc {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+.icon-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--text-color);
+  opacity: 0.4;
+  display: flex;
+  border-radius: 4px;
+}
+
+.icon-btn:hover { opacity: 1; background-color: var(--vscode-toolbar-hoverBackground); }
+.icon-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* Recent Section */
+.recent-section { padding: 10px 14px; border-bottom: 1px solid var(--divider); }
+.recent-title { font-size: 0.65rem; font-weight: 700; opacity: 0.5; margin-bottom: 8px; text-transform: uppercase; }
+.recent-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.recent-chip { padding: 4px 10px; border-radius: 12px; background: var(--vscode-badge-background); font-size: 0.75rem; cursor: pointer; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--vscode-scrollbarSlider-background); border-radius: 3px; }

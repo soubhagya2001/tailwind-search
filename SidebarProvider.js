@@ -47,6 +47,13 @@ class SidebarProvider {
           }
           break;
 
+        case "insertClass":
+          vscode.commands.executeCommand(
+            "tailwind-search.insertClass",
+            data.value
+          );
+          break;
+
         case "onError":
           if (data.value) {
             vscode.window.showErrorMessage(data.value);
@@ -96,40 +103,31 @@ class SidebarProvider {
       : "light";
 
     return `<!DOCTYPE html>
-      <html lang="en" data-theme="${currentTheme}">
+      <html lang="en">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="${styleUri}" rel="stylesheet">
       </head>
-      <body class="${currentTheme}-theme">
-        <div>
-          <select id="theme-selector">
-            <option value="light">Light Theme</option>
-            <option value="dark">Dark Theme</option>
-            <option value="high-contrast">High Contrast Theme</option>
-          </select>
-        </div>
+      <body>
         <div class="header-container">
-          <h1>Tailwind Search</h1>
-          <input type="text" id="searchInput" placeholder="Search for classes or headings..." />
+          <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search Tailwind classes..." autofocus />
+            <button id="clearSearch" class="clear-btn" style="display: none;">&times;</button>
+          </div>
+          <details id="quickNavDetails" class="quick-nav-details" style="display: none;">
+            <summary>Jump to section...</summary>
+            <div id="quickNav" class="quick-nav"></div>
+          </details>
+        </div>
+        <div class="recent-section" id="recentSection" style="display: none;">
+          <div class="recent-title">Recently Used</div>
+          <div class="recent-items" id="recentItems"></div>
         </div>
         <ul id="resultList"></ul>
         <script nonce="${nonce}" src="${scriptUri}"></script>
         <script nonce="${nonce}">
           const jsonUri = "${jsonUri}";
-          const currentTheme = "${currentTheme}";
-
-          // Automatically select the current theme in the dropdown
-          const themeSelector = document.getElementById("theme-selector");
-          themeSelector.value = currentTheme;
-
-          // Listen for theme changes
-          themeSelector.addEventListener("change", (event) => {
-            const selectedTheme = event.target.value;
-            document.body.className = selectedTheme + '-theme';
-            document.body.dataset.theme = selectedTheme;
-          });
         </script>
       </body>
       </html>`;
